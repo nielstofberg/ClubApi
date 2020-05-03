@@ -25,11 +25,33 @@ namespace ClubApi.Controllers
 
         // GET: api/Members
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Member>>> GetMember()
+        public async Task<ActionResult<IEnumerable<Member>>> GetMember(int? number, bool? detailed=true )
         {
-            return await _context.Member
-                .Include(m => m.MemberType)
-                .ToListAsync();
+            if (number != null)
+            {
+                try
+                {
+                    // similar to GET: api/Members/5 but searches by member number (not id) and returns a Member array
+                    return await _context.Member
+                        .Include(m => m.MemberType)
+                        .Include(m => m.Rifles)
+                        .Where(m => m.MemberNo == number).ToListAsync();
+                }
+                catch
+                {
+                    return BadRequest();
+                }
+            }
+            if (detailed == null || detailed == true)
+            {
+                return await _context.Member
+                    .Include(m => m.MemberType)
+                    .ToListAsync();
+            }
+            else
+            {
+                return await _context.Member.ToListAsync();
+            }
         }
 
         /// <summary>
@@ -42,7 +64,6 @@ namespace ClubApi.Controllers
         {
             try
             {
-                //var member = await _context.Member.FindAsync(id);
                 var member = _context.Member
                     .Include(m => m.MemberType)
                     .Include(m => m.Rifles)

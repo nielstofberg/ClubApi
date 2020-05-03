@@ -20,6 +20,7 @@ namespace ClubApi
 {
     public class Startup
     {
+        public IConfiguration Configuration { get; }
         public static readonly string CORS_ALLOW_ALL = "allowAllOrigins";
         public static readonly string CORS_ALLOW_SPECIFIC = "allowSpecificOrigins";
 
@@ -28,7 +29,6 @@ namespace ClubApi
             Configuration = configuration;
         }
 
-        public IConfiguration Configuration { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -62,7 +62,10 @@ namespace ClubApi
             //    options.HttpsPort = 1235;
             //});
 
-            services.AddDbContext<Models.DataContext>();
+            services.AddDbContext<Models.DataContext>(); // options => {
+            //    options.UseMySQL(Configuration.GetConnectionString("membersdb"));
+            //});
+
             services.AddMvc()
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2)
                 .AddJsonOptions(options => 

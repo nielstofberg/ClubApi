@@ -22,6 +22,7 @@ namespace ClubApi.Controllers
         }
 
         // GET api/values
+        [AllowAnonymous]
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
