@@ -22,9 +22,16 @@ namespace ClubApi.Controllers
 
         // GET: api/Attendances
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Attendance>>> GetAttendance_1()
+        public async Task<ActionResult<IEnumerable<Attendance>>> GetAttendance(int? member)
         {
-            return await _context.Attendance.ToListAsync();
+            if (member == null)
+            {
+                return await _context.Attendance.ToListAsync();
+            }
+            else
+            {
+                return await _context.Attendance.Where(m => m.MemberId == member).ToListAsync();
+            }
         }
 
         // GET: api/Attendances/5
@@ -75,9 +82,15 @@ namespace ClubApi.Controllers
         [HttpPost]
         public async Task<ActionResult<Attendance>> PostAttendance(Attendance attendance)
         {
-            _context.Attendance.Add(attendance);
-            await _context.SaveChangesAsync();
+            attendance.Date = attendance.Date.ToLocalTime();
+            Member mem = await _context.Member.FindAsync(attendance.MemberId);
+            if (mem != null)
+            {
+                _context.Attendance.Add(attendance);
+                mem.LastSignIn = attendance.Date;
 
+                await _context.SaveChangesAsync();
+            }
             return CreatedAtAction("GetAttendance", new { id = attendance.AttendanceId }, attendance);
         }
 

@@ -21,7 +21,7 @@ namespace ClubApi.Models
         [Required]
         public long MemberId { get; set; }
         public virtual Member Member { get; set; }
-        public long RifleId { get; set; }
+        public long? RifleId { get; set; }
         public virtual Rifle Rifle { get; set; }
         public int ActivityId { get; set; }
         public Activity Activity { get; set; }

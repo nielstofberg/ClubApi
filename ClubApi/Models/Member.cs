@@ -38,6 +38,10 @@ namespace ClubApi.Models
         [Required]
         public int MemberTypeId { get; set; }
         public virtual MemberType MemberType { get; set; }
+        public DateTime? LastSignIn { get; set; }
+        [Required]
+        [Column(TypeName = "bit")]
+        public bool Administrator { get; set; } = false;
         public virtual ICollection<Locker> Lockers { get; set; }
         public virtual ICollection<Rifle> Rifles { get; set; }
         public virtual ICollection<Attendance> Attendances { get; set; }
