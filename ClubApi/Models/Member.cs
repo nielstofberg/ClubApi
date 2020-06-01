@@ -14,6 +14,7 @@ namespace ClubApi.Models
 
         [Required]
         public int MemberNo { get; set; }
+        public DateTime? JoinDate { get; set; }
         public string Pin { get; set; }
         [Required]
         public string FirstName { get; set; }
