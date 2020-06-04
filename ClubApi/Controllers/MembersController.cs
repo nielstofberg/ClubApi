@@ -34,7 +34,10 @@ namespace ClubApi.Controllers
                     // similar to GET: api/Members/5 but searches by member number (not id) and returns a Member array
                     return await _context.Member
                         .Include(m => m.MemberType)
+                        .Include(m => m.MemberLevel)
                         .Include(m => m.Rifles)
+                        .Include(m => m.Facs)
+                        .Include(m => m.Lockers)
                         .Where(m => m.MemberNo == number).ToListAsync();
                 }
                 catch

@@ -14,12 +14,14 @@ namespace ClubApi.Models
     {
         public IConfiguration Configuration { get; }
 
-        public DbSet<Member> Member { get; set; }
-        public DbSet<MemberType> MemberType { get; set; }
-        public DbSet<Locker> Locker { get; set; }
-        public DbSet<Rifle> Rifle { get; set; }
-        public DbSet<Attendance> Attendance { get; set; }
         public DbSet<Activity> Activity { get; set; }
+        public DbSet<Attendance> Attendance { get; set; }
+        public DbSet<Fac> Facs { get; set; }
+        public DbSet<Locker> Locker { get; set; }
+        public DbSet<Member> Member { get; set; }
+        public DbSet<MemberLevel> MemberLevel { get; set; }
+        public DbSet<MemberType> MemberType { get; set; }
+        public DbSet<Rifle> Rifle { get; set; }
 
         public DataContext(IConfiguration configuration)
         {

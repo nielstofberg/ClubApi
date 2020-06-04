@@ -26,11 +26,16 @@ namespace ClubApi.Controllers
         {
             if (member == null)
             {
-                return await _context.Attendance.ToListAsync();
+                return await _context.Attendance.OrderByDescending(a=> a.Date).ToListAsync();
             }
             else
             {
-                return await _context.Attendance.Where(m => m.MemberId == member).ToListAsync();
+                return await _context.Attendance
+                    .Include(a=> a.Activity)
+                    .Include(a=> a.Rifle)
+                    .Where(m => m.MemberId == member)
+                    .OrderByDescending(a => a.Date)
+                    .ToListAsync();
             }
         }
 
