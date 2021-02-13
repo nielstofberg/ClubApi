@@ -30,7 +30,7 @@ namespace ClubApi.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseMySQL(Configuration.GetConnectionString("membersdb"));
+            optionsBuilder.UseMySQL(Configuration.GetConnectionString("membersdb") + "password=inverness07");
         }
 
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
